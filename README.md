@@ -29,20 +29,20 @@ PM5CTL0 &= ~LOCKLPM5;                   // Disable the GPIO power-on default hig
                                            // to activate previously configured port settings
 int count = 0;
 while(1){
-        if((P4IN & BUTTON1) == 0x00){
-        _delay_cycles(5000);
-        if((P4IN & BUTTON1) == 0x00){
-            P1OUT ^= RED_LED;
-            } while((P4IN & BUTTON1) == 0x00);
-        }
+        if((P4IN & BUTTON1) == 0x00){// Make sure the button is correct for turning the red light.
+			 _delay_cycles(5000);
+			if((P4IN & BUTTON1) == 0x00){
+				P1OUT ^= RED_LED;// When pressing button 1 once, it'll turn red. When pressing again, it will go off, make sure it won't be on all the time.
+				} while((P4IN & BUTTON1) == 0x00);
+			}
 
        else if((P2IN & BUTTON2) == 0x00){
          _delay_cycles(5000);
         if((P2IN & BUTTON2) == 0x00){
-            P6OUT |= GREEN_LED;
+            P6OUT ^= GREEN_LED;//It will be the same case as red light.
             }
         while((P2IN & BUTTON2) == 0x00);}
 
 }
-//return 0;
+return 0;
 }
